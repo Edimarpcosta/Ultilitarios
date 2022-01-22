@@ -1,0 +1,30 @@
+sub imprimir
+rem ----------------------------------------------------------------------
+rem define variables
+dim document   as object
+dim dispatcher as object
+rem ----------------------------------------------------------------------
+rem get access to the document
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+
+rem ----------------------------------------------------------------------
+dim args1(0) as new com.sun.star.beans.PropertyValue
+args1(0).Name = "Nr"
+args1(0).Value = 2
+
+dispatcher.executeDispatch(document, ".uno:JumpToTable", "", 0, args1())
+
+rem ----------------------------------------------------------------------
+dispatcher.executeDispatch(document, ".uno:Print", "", 0, Array())
+Wait 100
+
+rem ----------------------------------------------------------------------
+dim args3(0) as new com.sun.star.beans.PropertyValue
+args3(0).Name = "Nr"
+args3(0).Value = 1
+
+dispatcher.executeDispatch(document, ".uno:JumpToTable", "", 0, args3())
+
+
+end sub
